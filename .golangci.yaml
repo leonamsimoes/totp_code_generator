@@ -1,0 +1,89 @@
+version: "2"
+run:
+  build-tags:
+    - integration
+linters:
+  default: none
+  enable:
+    - copyloopvar
+    - errcheck
+    - goconst
+    - gocyclo
+    - gosec
+    - govet
+    - ineffassign
+    - misspell
+    - prealloc
+    - revive
+    - staticcheck
+    - unconvert
+    - unparam
+    - unused
+  settings:
+    errcheck:
+      check-blank: true
+    gocritic:
+      enabled-tags:
+        - diagnostic
+        - style
+    revive:
+      confidence: 0.8
+      rules:
+        - name: comment-spacings
+        - name: bool-literal-in-expr
+        - name: constant-logical-expr
+        - name: context-as-argument
+        - name: datarace
+        - name: dot-imports
+        - name: duplicated-imports
+        - name: early-return
+        - name: empty-block
+        - name: empty-lines
+        - name: exported
+        - name: identical-branches
+        - name: if-return
+        - name: optimize-operands-order
+        - name: range-val-in-closure
+        - name: range-val-address
+        - name: redefines-builtin-id
+        - name: string-of-int
+        - name: superfluous-else
+        - name: time-equal
+        - name: var-declaration
+        - name: unexported-naming
+        - name: unexported-return
+        - name: unhandled-error
+          arguments:
+            - fmt.Print.*
+            - .*WriteString
+        - name: unnecessary-stmt
+        - name: unreachable-code
+        - name: use-any
+        - name: waitgroup-by-value
+    unused:
+      field-writes-are-uses: true
+      post-statements-are-reads: false
+      exported-fields-are-used: false
+      parameters-are-used: true
+      local-variables-are-used: false
+      generated-is-used: true
+  exclusions:
+    generated: lax
+    rules:
+      - linters:
+          - copyloopvar
+        path: .+_test.go
+      - linters:
+          - govet
+        text: 'printf: non-constant format string in call to'
+      - linters:
+          - staticcheck
+        text: SA1006
+      - linters:
+          - gosec
+        text: G115
+    paths:
+      - examples$
+formatters:
+  enable:
+    - gofmt
