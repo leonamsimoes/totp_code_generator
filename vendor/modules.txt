@@ -8,7 +8,6 @@ github.com/boombuler/barcode/utils
 github.com/davecgh/go-spew/spew
 # github.com/go-playground/assert/v2 v2.2.0
 ## explicit; go 1.13
-github.com/go-playground/assert/v2
 # github.com/pmezard/go-difflib v1.0.0
 ## explicit
 github.com/pmezard/go-difflib/difflib
