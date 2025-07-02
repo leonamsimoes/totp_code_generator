@@ -6,6 +6,7 @@ import (
 	"github.com/totp_code_generator/internal/service"
 )
 
+// CreateNewCode creates a new TOTP code and returns a response.
 func CreateNewCode(input totp.GenerateOpts) (response domain.Response) {
 	key, err := service.GenerateTOTP(input)
 	if err != nil {

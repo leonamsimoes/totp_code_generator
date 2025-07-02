@@ -8,7 +8,7 @@ import (
 	"github.com/totp_code_generator/domain"
 )
 
-// Print show the message in the console
+// Print shows the message in the console based on the response.
 func Print(resp domain.Response) {
 	var msg string
 	switch resp.PrintOption {

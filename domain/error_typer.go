@@ -11,15 +11,15 @@ type (
 	// Code help to define the specific error
 	Code int
 
-	// CLIError define the complete error information
+	// CLIError defines the complete error information for the CLI.
 	CLIError struct {
 		Message error
 		Code    Code
 	}
 )
 
+// ErrorCode list of errors code
 const (
-	// ErrorCode list of errors code
 	ErrorCode_Unexpected Code = iota
 	ErrorCode_InvalidSecret
 	errorCode_InvalidArguments
@@ -27,15 +27,15 @@ const (
 	errorCode_ExternalError
 )
 
+// Error details
 var (
-	// ErrorMessage list of errors message
 	ErrorMessage_Unexpected       = errors.New("something unexpected happens")
 	ErrorMessage_InvalidSecret    = errors.New("secret is invalid")
 	errorMessage_InvalidArguments = errors.New("inputs are invalid")
 	errorMessage_InvalidNDigits   = errors.New("number of digits is invalid")
 	errorMessage_InvalidAccounts  = errors.New("account is invalid")
 
-	// ErrorInformation detail error information
+	// ErrorInformation maps error values to CLIError details.
 	ErrorInformation = map[error]CLIError{
 		ErrorMessage_Unexpected: {
 			Message: ErrorMessage_Unexpected,

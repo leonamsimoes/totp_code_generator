@@ -2,19 +2,20 @@ package domain
 
 import "github.com/pquerna/otp"
 
+// PrintOption to help to select the message to be printed
 type PrintOption int
 
+// Printed messages
 const (
-	// Response
 	BeginMessage PrintOption = 1 + iota
 	EndMessage
 	OTPCodeMessage
 	ErrorMessage
 
-	// Request
 	InputSecretMessage
 )
 
+// Response represents a message or result to be printed or returned.
 type Response struct {
 	PrintOption
 	OTPKey *otp.Key
