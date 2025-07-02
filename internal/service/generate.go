@@ -1,5 +1,5 @@
 // Command to generate a TOTP code
-package commands
+package service
 
 import (
 	"github.com/pquerna/otp"
@@ -9,6 +9,7 @@ import (
 func GenerateTOTP(input totp.GenerateOpts) (*otp.Key, error) {
 	key, err := totp.Generate(input)
 	if err != nil {
+
 		return &otp.Key{}, err
 	}
 

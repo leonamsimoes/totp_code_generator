@@ -1,6 +1,6 @@
 module github.com/totp_code_generator
 
-go 1.24
+go 1.22
 
 require (
 	github.com/pquerna/otp v1.5.0
