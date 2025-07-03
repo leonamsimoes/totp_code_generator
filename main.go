@@ -1,19 +1,24 @@
 package main
 
 import (
-	"github.com/pquerna/otp/totp"
-	"github.com/totp_code_generator/internal/commands"
+	"github.com/totp_code_generator/cmd"
+	"github.com/totp_code_generator/domain"
+	"github.com/totp_code_generator/internal/service"
 )
 
+// main is the entry point for the TOTP code generator application.
 func main() {
-	commands.PrintBegin()
-
-	key, err := commands.GenerateTOTP(totp.GenerateOpts{})
-	if err != nil {
-
+	input, cliErr := service.ReadInput()
+	if cliErr.Message != nil {
+		service.Print(domain.Response{
+			Error: cliErr,
+		})
 	}
 
-	commands.PrintTOTP(key)
+	response := cmd.CreateNewCode(input)
+	service.Print(response)
 
-	commands.PrintEnd()
+	service.Print(domain.Response{
+		PrintOption: domain.EndMessage,
+	})
 }

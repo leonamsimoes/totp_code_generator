@@ -1,9 +1,8 @@
 module github.com/totp_code_generator
 
-go 1.24.1
+go 1.22
 
 require (
-	github.com/go-playground/assert/v2 v2.2.0
 	github.com/pquerna/otp v1.5.0
 	github.com/stretchr/testify v1.3.0
 )
