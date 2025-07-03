@@ -1,0 +1,6 @@
+services:
+  api:
+    image: alpine:${DOCKER_TAG}
+    restart: unless-stopped
+    env_file:
+      - .env     
