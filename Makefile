@@ -1,7 +1,9 @@
-PROJECT_NAME 		 = totp_code_generator
-LDFLAGS_PATH 		 = gihub.com/
-PROJECT 	 		 = gihub.com/totp_code_generator
-CI_IMAGE_VERSION	 = 001
+PROJECT_NAME 		   = totp_code_generator
+LDFLAGS_PATH 		   = gihub.com/
+PROJECT 	 		   = gihub.com/totp_code_generator
+CI_IMAGE_VERSION	   = 001
+DOCKER_REPOSITORY	   = leonamsimoes/projects
+FULL_DOCKER_REPOSITORY = ${DOCKER_REPOSITORY}:${PROJECT_NAME}_${CI_IMAGE_VERSION}
 
  
 install: version # Install vendor
@@ -36,5 +38,6 @@ version: # Printing the version
 
 docker:
 	@echo "<.:: Docker Image ::.>"
-	docker build --tag ${PROJECT_NAME}/${CI_IMAGE_VERSION} -f misc/docker/Dockerfile . 
-	docker push leonamsimoes/${PROJECT_NAME}:${CI_IMAGE_VERSION}
+	docker build --tag ${FULL_DOCKER_REPOSITORY} -f misc/docker/Dockerfile .
+	docker login
+	docker push ${FULL_DOCKER_REPOSITORY}
