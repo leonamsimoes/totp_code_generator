@@ -11,8 +11,10 @@ func CreateNewCode(input totp.GenerateOpts) (response domain.Response) {
 	key, err := service.GenerateTOTP(input)
 	if err != nil {
 		response = domain.Response{
-			OTPKey:      key,
-			PrintOption: domain.ErrorMessage,
+			OTPKey: key,
+			PrintOptions: domain.PrintOptions{
+				domain.ErrorMessage,
+			},
 			Error: domain.CLIError{
 				Message: err,
 			},
@@ -21,13 +23,12 @@ func CreateNewCode(input totp.GenerateOpts) (response domain.Response) {
 		return response
 	}
 
-	response = domain.Response{
-		OTPKey:      key,
-		PrintOption: domain.OTPCodeMessage,
-	}
-
 	service.Print(domain.Response{
-		PrintOption: domain.EndMessage,
+		OTPKey: key,
+		PrintOptions: domain.PrintOptions{
+			domain.OTPCodeMessage,
+			domain.EndMessage,
+		},
 	})
 
 	return response
