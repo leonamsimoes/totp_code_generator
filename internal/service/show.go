@@ -8,26 +8,31 @@ import (
 	"github.com/totp_code_generator/domain"
 )
 
-// Print shows the message in the console based on the response.
-func Print(resp domain.Response) {
-	var msg string
-	switch resp.PrintOption {
-	case 1:
-		msg = printBegin()
-	case 2:
-		msg = printEnd()
-	case 3:
-		msg = printTOTP(resp.OTPKey)
-	case 4:
-		msg = printError(resp.Error)
+// Print shows the messages in the console based on the response.
+func Print(resps ...domain.Response) {
+	for _, resp := range resps {
+		for _, option := range resp.PrintOptions {
+			var msg string
 
-	default:
-		msg = printError(domain.CLIError{
-			Message: fmt.Errorf("not expected, %s", resp.Error.Message),
-		})
+			switch option {
+			case 1:
+				msg = printBegin()
+			case 2:
+				msg = printEnd()
+			case 3:
+				msg = printTOTP(resp.OTPKey)
+			case 4:
+				msg = printError(resp.Error)
+
+			default:
+				msg = printError(domain.CLIError{
+					Message: fmt.Errorf("not expected, %s", resp.Error.Message),
+				})
+			}
+
+			fmt.Print(msg)
+		}
 	}
-
-	fmt.Print(msg)
 }
 
 func printTOTP(k *otp.Key) string {

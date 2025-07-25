@@ -17,7 +17,10 @@ const (
 
 // Response represents a message or result to be printed or returned.
 type Response struct {
-	PrintOption
+	PrintOptions
 	OTPKey *otp.Key
 	Error  CLIError
 }
+
+// PrintOptions list of value to be show
+type PrintOptions []PrintOption

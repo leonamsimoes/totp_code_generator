@@ -19,6 +19,8 @@ func main() {
 	service.Print(response)
 
 	service.Print(domain.Response{
-		PrintOption: domain.EndMessage,
+		PrintOptions: domain.PrintOptions{
+			domain.EndMessage,
+		},
 	})
 }

@@ -12,11 +12,10 @@ import (
 // ReadInput reads user input from stdin and validates it, returning TOTP options and a CLIError.
 func ReadInput() (totp.GenerateOpts, domain.CLIError) {
 	Print(domain.Response{
-		PrintOption: domain.BeginMessage,
-	})
-
-	Print(domain.Response{
-		PrintOption: domain.InputSecretMessage,
+		PrintOptions: domain.PrintOptions{
+			domain.BeginMessage,
+			domain.InputSecretMessage,
+		},
 	})
 
 	reader := bufio.NewReader(os.Stdin)
