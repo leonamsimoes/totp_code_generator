@@ -2,6 +2,7 @@
 
 A simple Command Line Interface (CLI) tool to generate One-Time Password (OTP) codes based on the TOTP (Time-based One-Time Password) algorithm. This project is written in Go (Golang) and allows you to securely generate OTP codes from a shared secret.
 
+
 ## Features ✨
 
 - Generate OTP codes using a secret key
@@ -83,28 +84,20 @@ The OTP code will be displayed on the terminal.
     make build
     ```
 
-## Contributing 🤝
-
-If you'd like to contribute to this project, feel free to fork the repository, create a feature branch, and submit a pull request.
-
-1. Fork the repository.
-2. Create your feature branch (`git checkout -b feature-name`).
-3. Commit your changes (`git commit -am 'Add new feature'`).
-4. Push to the branch (`git push origin feature-name`).
-5. Open a pull request.
-
-Please ensure that your changes adhere to the coding standards and include proper tests.
-
 ## License 📄
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-### Key Elements:
+### Key Elements: 📊
 
 - **Project Overview**: Brief description of the tool and the technology used (Go, Makefile).
 - **Installation**: Clear instructions on cloning the repo, building, and running the project.
 - **Usage**: Examples of commands and options.
 - **Development**: How to contribute and run tests.
-- **Contributing**: Instructions on contributing to the project.
+
+
+## Contribution 🧙
+
+I am using the package [OTP](https://github.com/pquerna/otp) from [Paul Querna](https://github.com/pquerna). I just created my version (for studying and working with).
