@@ -13,6 +13,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: leonamsimoes/totp_code_generator_001:latest
     steps:
       - name: Login to DockerHub
         uses: docker/login-action@v3
@@ -21,10 +23,38 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Set up job container
         run: |
+          docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
           docker pull leonamsimoes/totp_code_generator_001:latest
-      - name: Test (in container)
+      - name: Test
         run: |
           docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace leonamsimoes/totp_code_generator_001:latest make test
-      - name: Lint (in container)
+      - name: Lint
         run: |
           docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace leonamsimoes/totp_code_generator_001:latest make lint
+
+
+# name: Go CI
+
+# on:
+#   push:
+#     branches:
+#       - main
+#       - develop
+#   pull_request:
+#     branches:
+#       - main
+#       - develop
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     container:
+#       image: leonamsimoes/totp_code_generator_001:latest
+#       credentials:
+#         username: ${{ secrets.DOCKERHUB_USERNAME }}
+#         password: ${{ secrets.DOCKERHUB_TOKEN }}
+#     steps:
+#       - name: Test
+#         run: make test
+#       - name: Lint
+#         run: make lint
