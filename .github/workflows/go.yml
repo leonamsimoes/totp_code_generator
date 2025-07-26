@@ -24,7 +24,7 @@ jobs:
           docker pull leonamsimoes/projects:totp_code_generator_001
       - name: Test
         run: |
-          echo ${{ github.workspace }}
+          echo WORKSPACE ${{ github.workspace }}
           docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace leonamsimoes/projects:totp_code_generator_001 make test
       - name: Lint
         run: |
