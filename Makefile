@@ -38,6 +38,7 @@ version: # Printing the version
 
 docker:
 	@echo "<.:: Docker Image ::.>"
+	docker pull ${FULL_DOCKER_REPOSITORY}
 	docker build --tag ${FULL_DOCKER_REPOSITORY} -f misc/docker/Dockerfile .
 	docker login
 	docker push ${FULL_DOCKER_REPOSITORY}
