@@ -1,34 +1,48 @@
 package cmd
 
 import (
+	"github.com/pquerna/otp"
 	"github.com/pquerna/otp/totp"
 	"github.com/totp_code_generator/domain"
 	"github.com/totp_code_generator/internal/service"
 )
 
 // CreateNewCode creates a new TOTP code and returns a response.
-func CreateNewCode(input totp.GenerateOpts) (response domain.Response) {
-	key, err := service.GenerateTOTP(input)
-	if err != nil {
-		response = domain.Response{
-			OTPKey:      key,
-			PrintOption: domain.ErrorMessage,
-			Error: domain.CLIError{
-				Message: err,
-			},
-		}
-
-		return response
+func CreateNewCode(ipt domain.Input) (resp domain.Response) {
+	input := totp.GenerateOpts{
+		Issuer:      ipt.FlagIssuer,
+		AccountName: ipt.FlagAccount,
+		Digits:      otp.Digits(ipt.FlagLength),
+		Secret:      []byte(ipt.FlagSecret),
+		Period:      uint(ipt.FlagDuration),
 	}
 
-	response = domain.Response{
-		OTPKey:      key,
-		PrintOption: domain.OTPCodeMessage,
+	key, err := service.GenerateTOTP(input)
+	if err != nil {
+		resp = domain.Response{
+			OTPKey: key,
+			PrintOptions: []domain.Code{
+				domain.ErrorCode_Unexpected,
+			},
+			Error: err,
+		}
+
+		return resp
 	}
 
 	service.Print(domain.Response{
-		PrintOption: domain.EndMessage,
+		OTPKey: key,
+		PrintOptions: []domain.Code{
+			domain.OTPCodeMessage,
+		},
 	})
 
-	return response
+	service.Print(domain.Response{
+		OTPKey: key,
+		PrintOptions: []domain.Code{
+			domain.OTPCodeResponse,
+		},
+	})
+
+	return
 }
