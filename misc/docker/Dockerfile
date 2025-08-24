@@ -13,8 +13,6 @@ WORKDIR /bin
 COPY . .
 RUN make build
 
-
-
 # Final image
 FROM alpine:latest
 RUN apk add --no-cache make

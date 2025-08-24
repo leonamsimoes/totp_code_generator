@@ -9,12 +9,6 @@ import (
 	"github.com/totp_code_generator/internal/service"
 )
 
-const (
-	defaultLength   int    = 6
-	defaultDuration int    = 30
-	defaultIssuer   string = "gmail"
-)
-
 var defaultStatus int
 
 func init() {
@@ -53,29 +47,57 @@ func main() {
 		os.Exit(status)
 	}()
 
-	inputs := readInput()
-
-	response = inputs.ValidateInputs()
-	if response.Error != nil {
+	inputs, err := readInput()
+	if err != nil {
 		status = response.PrintOptions[len(response.PrintOptions)+1].Int()
 		return
 	}
 
-	response = cmd.CreateNewCode(inputs)
+	response, err = inputs.ValidateInputs()
+	if err != nil {
+		status = response.PrintOptions[len(response.PrintOptions)+1].Int()
+		return
+	}
+
+	response, err = cmd.CreateNewCode(inputs)
+	if err != nil {
+		status = response.PrintOptions[len(response.PrintOptions)+1].Int()
+		return
+	}
+
+	service.Print(response)
 }
 
-func readInput() domain.Input {
-	flagHelper := flag.String(domain.HelperFlag, "", domain.HelperInformation)
+func readInput() (empty domain.Input, err error) {
+	flagHelper, err := service.FlagStringAssist(domain.HelperFlag)
+	if err != nil {
+		return empty, err
+	}
 
-	flagIssuer := flag.String(domain.IssuerFlag, defaultIssuer, domain.IssuerInformation)
+	flagIssuer, err := service.FlagStringAssist(domain.IssuerFlag)
+	if err != nil {
+		return empty, err
+	}
 
-	flagAccount := flag.String(domain.AccountFlag, "", domain.AccountInformation)
+	flagAccount, err := service.FlagStringAssist(domain.AccountFlag)
+	if err != nil {
+		return empty, err
+	}
 
-	flagLength := flag.Int(domain.LengthFlag, defaultLength, domain.LengthInformation)
+	flagSecret, err := service.FlagStringAssist(domain.SecretFlag)
+	if err != nil {
+		return empty, err
+	}
 
-	flagDuration := flag.Int(domain.DurationFlag, defaultDuration, domain.DurationInformation)
+	flagLength, err := service.FlagIntAssist(domain.LengthFlag)
+	if err != nil {
+		return empty, err
+	}
 
-	flagSecret := flag.String(domain.SecretFlag, "", domain.SecretInformation)
+	flagDuration, err := service.FlagIntAssist(domain.DurationFlag)
+	if err != nil {
+		return empty, err
+	}
 
 	flag.Parse()
 
@@ -86,5 +108,5 @@ func readInput() domain.Input {
 		*flagIssuer,
 		*flagAccount,
 		*flagSecret,
-	)
+	), nil
 }

@@ -37,6 +37,13 @@ const (
 	LengthFlag   = "length"
 	DurationFlag = "duration"
 	SecretFlag   = "secret"
+
+	HelperFlagAlias   = "-h"
+	IssuerFlagAlias   = "-i"
+	AccountFlagAlias  = "-a"
+	LengthFlagAlias   = "-l"
+	DurationFlagAlias = "-d"
+	SecretFlagAlias   = "-s"
 )
 
 type (
@@ -44,7 +51,6 @@ type (
 	Response struct {
 		PrintOptions []Code
 		OTPKey       string
-		Error        error
 	}
 
 	// Code helps to select the message to be printed

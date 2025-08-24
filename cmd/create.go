@@ -8,7 +8,7 @@ import (
 )
 
 // CreateNewCode creates a new TOTP code and returns a response.
-func CreateNewCode(ipt domain.Input) (resp domain.Response) {
+func CreateNewCode(ipt domain.Input) (resp domain.Response, err error) {
 	input := totp.GenerateOpts{
 		Issuer:      ipt.FlagIssuer,
 		AccountName: ipt.FlagAccount,
@@ -24,10 +24,9 @@ func CreateNewCode(ipt domain.Input) (resp domain.Response) {
 			PrintOptions: []domain.Code{
 				domain.ErrorCode_Unexpected,
 			},
-			Error: err,
 		}
 
-		return resp
+		return resp, err
 	}
 
 	service.Print(domain.Response{
@@ -44,5 +43,5 @@ func CreateNewCode(ipt domain.Input) (resp domain.Response) {
 		},
 	})
 
-	return
+	return resp, err
 }

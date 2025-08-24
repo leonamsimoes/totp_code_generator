@@ -46,8 +46,8 @@ func TestCreateNewCode(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			response := CreateNewCode(tt.input)
-			ok := tt.errExpected(t, response.Error, "should be equal")
+			response, err := CreateNewCode(tt.input)
+			ok := tt.errExpected(t, err, "should be equal")
 			if ok {
 				return
 			}
@@ -56,7 +56,8 @@ func TestCreateNewCode(t *testing.T) {
 
 			if tt.newCode {
 				time.Sleep(time.Duration(tt.input.FlagDuration + 5))
-				newResponse := CreateNewCode(tt.input)
+				newResponse, err := CreateNewCode(tt.input)
+				assert.NoError(t, err, "should be nil")
 				assert.NotEqualf(t, response, newResponse, "OTP key should not be equal")
 			}
 		})

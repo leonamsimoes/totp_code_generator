@@ -15,8 +15,8 @@ type Input struct {
 }
 
 // ValidateInputs reads user input from stdin and validates it.
-func (i Input) ValidateInputs() (resp Response) {
-	err := validateString(i.FlagAccount)
+func (i Input) ValidateInputs() (resp Response, err error) {
+	err = validateString(i.FlagAccount)
 	if err != nil {
 		resp.PrintOptions = append(resp.PrintOptions, errorCode_InvalidAccount_ExternalError)
 	}
@@ -30,8 +30,6 @@ func (i Input) ValidateInputs() (resp Response) {
 	if err != nil {
 		resp.PrintOptions = append(resp.PrintOptions, errorCode_InvalidSecretLength_ExternalError)
 	}
-
-	resp.Error = err
 
 	return
 }
