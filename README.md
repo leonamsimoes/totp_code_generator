@@ -6,6 +6,9 @@ A simple Command Line Interface (CLI) tool to generate One-Time Password (OTP) c
 #### Note 📋: _I realize this project might seem over-engineered, but I'm using it as a sandbox to experiment with testing methodologies, which will ultimately be a valuable addition to my portfolio._.
 
 
+_(TOTP and other features coming soon)_ 🚀
+
+
 ## Features ✨
 
 - Generate OTP codes using a secret key
@@ -41,12 +44,48 @@ To generate an OTP code, you will need to provide a secret key (in base32 encodi
 
 ### Basic Command
 ```bash
-./otp-generator-cli --secret="your-secret-here"
+./otp-generator-cli --secret="SECRETVALUEHERE" --account test@gmail.com --issuer outlook --duration 60 --length 10
+```
+
+### Help argument
+```bash
+./otp-generator-cli --help
+```
+
+### Secret argument
+```bash
+./otp-generator-cli --secret SECRETVALUEHERE
+```
+
+### Account argument
+```bash
+./otp-generator-cli --account test@gmail.com
+```
+
+### Issuer argument
+```bash
+./otp-generator-cli --issuer outlook
+```
+
+### Duration argument
+```bash
+./otp-generator-cli --duration 60
+```
+
+### Length argument
+```bash
+./otp-generator-cli --length 10
 ```
 
 ### Example:
 ```bash
-./otp-generator-cli --secret="JBSWY3DPEHPK3PXP"
+============================================
+============================================
+BEGIN
+Code: 1617198347
+END
+============================================
+============================================
 ```
 
 This will generate the OTP code for the provided secret using the current time-based window.
@@ -98,6 +137,8 @@ If you'd like to contribute to this project, feel free to fork the repository, c
 5. Open a pull request.
 
 Please ensure that your changes adhere to the coding standards and include proper tests.
+
+### **Especial thanks to github.com/pquerna!** 🤝
 
 ## License 📄
 
