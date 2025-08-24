@@ -1,67 +1,78 @@
 package service
 
 import (
-	"bufio"
-	"os"
-	"strings"
+	"flag"
 
-	"github.com/pquerna/otp/totp"
 	"github.com/totp_code_generator/domain"
 )
 
-// ReadInput reads user input from stdin and validates it, returning TOTP options and a CLIError.
-func ReadInput() (totp.GenerateOpts, domain.CLIError) {
-	Print(domain.Response{
-		PrintOption: domain.BeginMessage,
-	})
+const (
+	defaultLength   int    = 6
+	defaultDuration int    = 30
+	defaultIssuer   string = "gmail"
+)
 
-	Print(domain.Response{
-		PrintOption: domain.InputSecretMessage,
-	})
-
-	reader := bufio.NewReader(os.Stdin)
-	ln, err := reader.ReadString('\n')
-	if err != nil {
-		return totp.GenerateOpts{}, domain.CLIError{
-			Message: err,
-		}
+// NewInput returns the inputs flags set
+func NewInput(argLength, argDuration int, argHelper, argIssuer, argAccount, argSecret string) domain.Input {
+	return domain.Input{
+		FlagHelper:   argHelper,
+		FlagIssuer:   argIssuer,
+		FlagAccount:  argAccount,
+		FlagSecret:   argSecret,
+		FlagLength:   argLength,
+		FlagDuration: argDuration,
 	}
-
-	opts, cliErr := validateInputs(ln)
-	if cliErr.Message != nil {
-		return totp.GenerateOpts{}, cliErr
-	}
-
-	return opts, domain.CLIError{}
 }
 
-// validateInputs validates the input line and returns TOTP options and a CLIError.
-func validateInputs(ln string) (totp.GenerateOpts, domain.CLIError) {
-	secret, cliErr := validateSecret(ln)
-	if cliErr.Message != nil {
-		return totp.GenerateOpts{}, cliErr
+// FlagStringAssist helps to expect the whole flag or the alias
+func FlagStringAssist(strFlag string) (str *string, err error) {
+	var (
+		defaultValue string
+		msg          string
+	)
+	switch strFlag {
+	case domain.HelperFlag:
+		defaultValue = ""
+		msg = domain.HelperInformation
+
+	case domain.IssuerFlag:
+		defaultValue = defaultIssuer
+		msg = domain.IssuerInformation
+
+	case domain.AccountFlag:
+		defaultValue = defaultIssuer
+		msg = domain.AccountInformation
+
+	case domain.SecretFlag:
+		defaultValue = defaultIssuer
+		msg = domain.SecretInformation
+
+	default:
+		return str, domain.ErrorMessage_InvalidArguments
 	}
 
-	return totp.GenerateOpts{
-		Secret: secret,
-	}, domain.CLIError{}
+	return flag.String(strFlag, defaultValue, msg), nil
 }
 
-// validateSecret checks if the secret is empty and returns the secret as bytes and a CLIError.
-func validateSecret(secret string) ([]byte, domain.CLIError) {
-	newSecret, empty := isEmpty(secret)
-	if !empty {
-		return nil, domain.CLIError{
-			Message: domain.ErrorMessage_InvalidSecret,
-			Code:    domain.ErrorCode_InvalidSecret,
-		}
+// FlagIntAssist helps to expect the whole flag or the alias
+func FlagIntAssist(strFlag string) (i *int, err error) {
+	var (
+		defaultValue int
+		msg          string
+	)
+
+	switch strFlag {
+	case domain.LengthFlag:
+		defaultValue = defaultLength
+		msg = domain.HelperInformation
+
+	case domain.DurationFlag:
+		defaultValue = defaultDuration
+		msg = domain.IssuerInformation
+
+	default:
+		return i, domain.ErrorMessage_InvalidArguments
 	}
 
-	return []byte(newSecret), domain.CLIError{}
-}
-
-// isEmpty trims the string and checks if it is empty.
-func isEmpty(s string) (string, bool) {
-	s = strings.TrimSpace(s)
-	return s, s == ""
+	return flag.Int(strFlag, defaultValue, msg), nil
 }

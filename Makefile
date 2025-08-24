@@ -1,8 +1,11 @@
-PROJECT_NAME = totp_code_generator
+PROJECT_NAME 		   = totp_code_generator
+LDFLAGS_PATH 		   = gihub.com/
+PROJECT 	 		   = gihub.com/totp_code_generator
+CI_IMAGE_VERSION	   = 001
+DOCKER_REPOSITORY	   = leonamsimoes/projects
+FULL_DOCKER_REPOSITORY = ${DOCKER_REPOSITORY}:${PROJECT_NAME}_${CI_IMAGE_VERSION}
 
-LDFLAGS_PATH = gihub.com/totp_code_generator
-LDFLAGS ?= "-X ${LDFLAGS_PATH}runtime.version=$(shell git rev-parse --short HEAD)"
-
+ 
 install: version # Install vendor
 	@echo "<.:: Running Go tests ::.>"
 	go mod vendor
@@ -32,3 +35,9 @@ version: # Printing the version
 	@echo "<.:: Versions ::.>"
 	go version ;
 	golangci-lint --version ;
+
+docker:
+	@echo "<.:: Docker Image ::.>"
+	docker build --tag ${FULL_DOCKER_REPOSITORY} -f misc/docker/Dockerfile .
+	docker login
+	docker push ${FULL_DOCKER_REPOSITORY}

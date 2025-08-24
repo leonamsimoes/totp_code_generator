@@ -2,6 +2,10 @@
 
 A simple Command Line Interface (CLI) tool to generate One-Time Password (OTP) codes based on the TOTP (Time-based One-Time Password) algorithm. This project is written in Go (Golang) and allows you to securely generate OTP codes from a shared secret.
 
+
+#### Note 📋: _I realize this project might seem over-engineered, but I'm using it as a sandbox to experiment with testing methodologies, which will ultimately be a valuable addition to my portfolio._.
+
+
 ## Features ✨
 
 - Generate OTP codes using a secret key

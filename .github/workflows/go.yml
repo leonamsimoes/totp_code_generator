@@ -13,56 +13,19 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: golang:1.24
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-      - name: Install golangci-lint
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Set up job container
         run: |
-          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.59.1
-          echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
-      - name: Build
-        run: go build -v ./...
-      - name: Run golangci-lint
-        run: golangci-lint run ./...
+          docker image pull leonamsimoes/projects:totp_code_generator_001 
       - name: Test
-        run: go test ./... -cover -timeout 5m
-
-  build-push-image:
-    runs-on: ubuntu-latest
-    outputs:
-      date: ${{ steps.date.outputs.date }}
-    steps:
-      - uses: actions/checkout@v4
-      - name: Get current date # get the date of the build
-        id: date
-        run: echo "::set-output name=date::$(date +%s)"
-      - name: Build the Docker image
-        run: docker build . --file Dockerfile  --tag ghcr.io/leonamsimoes/totp_code_generator:${{ steps.date.outputs.date }}
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Push the Docker image to the GitHub registry
-        run: docker push ghcr.io/leonamsimoes/totp_code_generator:${{ steps.date.outputs.date }}
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build-push-image
-    steps:
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - name: Add remote server to known_hosts
         run: |
-          ssh-keyscan leonam.simoes@gmail.com >> ~/.ssh/known_hosts
-      - name: Deploy to server
+          echo WORKSPACE ${{ github.workspace }}
+          docker run --rm -d leonamsimoes/projects:totp_code_generator_001 make test
+      - name: Lint
         run: |
-          ssh leonam.simoes@gmail.com << 'EOF'                     
-            cd ./misc/docker/docker-compose.yml
-            sed -i 's/^DOCKER_TAG=.*/DOCKER_TAG=${{ needs.build-push-image.outputs.date }}/' .env
-            docker compose up -d
-          EOF
+          docker run --rm -d leonamsimoes/projects:totp_code_generator_001 make lint
