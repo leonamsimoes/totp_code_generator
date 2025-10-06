@@ -107,7 +107,7 @@ The OTP code will be displayed on the terminal.
 
 1. **Clone the repository**:
     ```bash
-    git clone https://github.com/yourusername/otp-generator-cli.git
+    git clone https://github.com/leonamsimoes/otp-generator-cli.git
     cd otp-generator-cli
     ```
 
