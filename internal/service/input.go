@@ -3,7 +3,7 @@ package service
 import (
 	"flag"
 
-	"github.com/totp_code_generator/domain"
+	"github.com/leonamsimoes/totp_code_generator/domain"
 )
 
 const (

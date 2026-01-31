@@ -4,9 +4,9 @@ import (
 	"flag"
 	"os"
 
-	"github.com/totp_code_generator/cmd"
-	"github.com/totp_code_generator/domain"
-	"github.com/totp_code_generator/internal/service"
+	"github.com/leonamsimoes/totp_code_generator/cmd"
+	"github.com/leonamsimoes/totp_code_generator/domain"
+	"github.com/leonamsimoes/totp_code_generator/internal/service"
 )
 
 var defaultStatus int

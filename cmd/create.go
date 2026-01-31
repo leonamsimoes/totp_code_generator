@@ -1,10 +1,10 @@
 package cmd
 
 import (
+	"github.com/leonamsimoes/totp_code_generator/domain"
+	"github.com/leonamsimoes/totp_code_generator/internal/service"
 	"github.com/pquerna/otp"
 	"github.com/pquerna/otp/totp"
-	"github.com/totp_code_generator/domain"
-	"github.com/totp_code_generator/internal/service"
 )
 
 // CreateNewCode creates a new TOTP code and returns a response.

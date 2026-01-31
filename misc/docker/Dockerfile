@@ -5,7 +5,7 @@ RUN echo "Building Docker image"
 
 # Install golangci-lint
 RUN apk add --no-cache curl && \
-     curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b /usr/local/bin v1.59.1
+     curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b /usr/local/bin v2.50.0
 
 RUN apk add --no-cache curl make
 

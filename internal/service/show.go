@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/totp_code_generator/domain"
+	"github.com/leonamsimoes/totp_code_generator/domain"
 )
 
 // Print shows the message in the console based on the response.
