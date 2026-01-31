@@ -5,8 +5,8 @@ package service
 import (
 	"testing"
 
+	"github.com/leonamsimoes/totp_code_generator/domain"
 	"github.com/stretchr/testify/assert"
-	"github.com/totp_code_generator/domain"
 )
 
 func TestReturnError(t *testing.T) {

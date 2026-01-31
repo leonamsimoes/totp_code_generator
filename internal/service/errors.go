@@ -2,7 +2,7 @@
 package service
 
 import (
-	"github.com/totp_code_generator/domain"
+	"github.com/leonamsimoes/totp_code_generator/domain"
 )
 
 // ReturnError based on the Code information returns the CLIError

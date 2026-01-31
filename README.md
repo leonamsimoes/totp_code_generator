@@ -24,19 +24,24 @@ _(TOTP and other features coming soon)_ 🚀
   
 ## Installation 🔨
 
-1. **Clone the repository**:
+1. **Using go install**:
     ```bash
-    git clone https://github.com/yourusername/otp-generator-cli.git
-    cd otp-generator-cli
+    go install github.com/leonamsimoes/totp_code_generator@latest
     ```
 
-2. **Build the project using Make**:
+2. **Clone the repository**:
+    ```bash
+    git clone https://github.com/leonamsimoes/totp_code_generator.git
+    cd totp_code_generator
+    ```
+
+    2a. **Build the project using Make**:
     ```bash
     make build
     ```
 
-3. **Run the executable**:
-    After building, you will have the `otp-generator-cli` binary ready to use.
+    2b. **Run the executable**:
+    After building, you will have the `totp_code_generator` binary ready to use.
 
 ## Usage 📖
 
@@ -44,37 +49,37 @@ To generate an OTP code, you will need to provide a secret key (in base32 encodi
 
 ### Basic Command
 ```bash
-./otp-generator-cli --secret="SECRETVALUEHERE" --account test@gmail.com --issuer outlook --duration 60 --length 10
+./totp_code_generator --secret="SECRETVALUEHERE" --account test@gmail.com --issuer outlook --duration 60 --length 10
 ```
 
 ### Help argument
 ```bash
-./otp-generator-cli --help
+./totp_code_generator --help
 ```
 
 ### Secret argument
 ```bash
-./otp-generator-cli --secret SECRETVALUEHERE
+./totp_code_generator --secret SECRETVALUEHERE
 ```
 
 ### Account argument
 ```bash
-./otp-generator-cli --account test@gmail.com
+./totp_code_generator --account test@gmail.com
 ```
 
 ### Issuer argument
 ```bash
-./otp-generator-cli --issuer outlook
+./totp_code_generator --issuer outlook
 ```
 
 ### Duration argument
 ```bash
-./otp-generator-cli --duration 60
+./totp_code_generator --duration 60
 ```
 
 ### Length argument
 ```bash
-./otp-generator-cli --length 10
+./totp_code_generator --length 10
 ```
 
 ### Example:

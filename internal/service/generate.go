@@ -5,8 +5,8 @@ import (
 	"errors"
 	"time"
 
+	"github.com/leonamsimoes/totp_code_generator/domain"
 	"github.com/pquerna/otp/totp"
-	"github.com/totp_code_generator/domain"
 )
 
 // GenerateTOTP generates a TOTP key using the provided options.

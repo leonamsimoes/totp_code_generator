@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/leonamsimoes/totp_code_generator/domain"
 	"github.com/stretchr/testify/assert"
-	"github.com/totp_code_generator/domain"
 )
 
 func TestCreateNewCode(t *testing.T) {
