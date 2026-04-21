@@ -1,9 +1,8 @@
 PROJECT_NAME 		   = totp_code_generator
 PROJECT 	 		   = gihub.com/leonamsimoes/totp_code_generator
-CI_IMAGE_VERSION	   = 002
+CI_IMAGE_VERSION	   = 003
 DOCKER_REPOSITORY	   = leonamsimoes/projects
 FULL_DOCKER_REPOSITORY = ${DOCKER_REPOSITORY}:${PROJECT_NAME}_${CI_IMAGE_VERSION}
-
  
 install: version # Install vendor
 	@echo "<.:: Running Go tests ::.>"
@@ -21,6 +20,11 @@ lint: # Linter
 	golangci-lint run
 
 
+mutation: # Mutation
+	@echo "<.:: Running mutation test ::.>"
+	gremlins unleash --config=misc/docker/confs/.gremlins.yaml
+
+
 quality: test lint
 	@echo "<.:: Quality code ::.>"
 
@@ -34,6 +38,7 @@ version: # Printing the version
 	@echo "<.:: Versions ::.>"
 	go version ;
 	golangci-lint --version ;
+	gremlins --version ;
 
 docker:
 	@echo "<.:: Docker Image ::.>"

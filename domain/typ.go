@@ -2,7 +2,7 @@ package domain
 
 // Lines design
 const (
-	LineSeparator Code = iota - 10
+	LineSeparator Code = iota + 100
 	LineBreaker
 )
 
