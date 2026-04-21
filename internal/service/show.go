@@ -21,7 +21,7 @@ func Print(resp domain.Response) {
 		}
 
 		if option == domain.OTPCodeResponse {
-			printResponse(resp)
+			printOTPCode(resp)
 			return
 		}
 
@@ -29,6 +29,6 @@ func Print(resp domain.Response) {
 	}
 }
 
-func printResponse(resp domain.Response) {
+func printOTPCode(resp domain.Response) {
 	fmt.Print(resp.OTPKey)
 }
