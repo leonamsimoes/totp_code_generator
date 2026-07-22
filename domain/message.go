@@ -20,7 +20,7 @@ var (
 		EndMessage:          "END",
 		OTPCodeMessage:      "Code: ",
 		OTPCodeResponse:     "",
-		InputSecretMessage:  "insert the secret",
+		InputSctMessage:     "insert the secret",
 		InputAccountMessage: "insert the account",
 		LineSeparator:       "============================================",
 		LineBreaker:         "\n",
