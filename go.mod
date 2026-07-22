@@ -1,6 +1,6 @@
 module github.com/leonamsimoes/totp_code_generator
 
-go 1.26.2
+go 1.26.5
 
 require (
 	github.com/pquerna/otp v1.5.0

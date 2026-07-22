@@ -1,6 +1,6 @@
 PROJECT_NAME 		   = totp_code_generator
 PROJECT 	 		   = gihub.com/leonamsimoes/totp_code_generator
-CI_IMAGE_VERSION	   = 003
+CI_IMAGE_VERSION	   = 004
 DOCKER_REPOSITORY	   = leonamsimoes/projects
 FULL_DOCKER_REPOSITORY = ${DOCKER_REPOSITORY}:${PROJECT_NAME}_${CI_IMAGE_VERSION}
  

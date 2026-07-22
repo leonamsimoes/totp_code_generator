@@ -11,7 +11,7 @@ const (
 	BeginMessage Code = iota
 	EndMessage
 	OTPCodeMessage
-	InputSecretMessage
+	InputSctMessage
 	InputAccountMessage
 	OTPCodeResponse
 )

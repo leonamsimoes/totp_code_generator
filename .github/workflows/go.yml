@@ -1,7 +1,7 @@
 name: Go CI
 
 env:
-  DOCKER_IMAGE_VERSION: "003"
+  DOCKER_IMAGE_VERSION: "004"
 
 on:
   push:
